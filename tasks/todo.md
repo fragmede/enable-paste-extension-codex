@@ -14,6 +14,15 @@
 - [x] Test paste-restoration behavior on the checkout page.
 - [x] Document PartSelect results.
 
+## GitHub Publish
+
+- [x] Rewrite `README.md` for public GitHub release.
+- [x] Add MIT license.
+- [x] Validate manifest and content script.
+- [ ] Commit README/license changes.
+- [ ] Create public GitHub repository with `gh`.
+- [ ] Push `main` to GitHub.
+
 ## Plan
 
 Build a focused Chrome extension with a content script that runs at `document_start` in all frames. The content script will intercept paste-related user actions on native editable targets, stop page handlers from canceling those actions, and leave the browser default paste behavior intact.
