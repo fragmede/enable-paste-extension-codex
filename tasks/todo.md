@@ -19,9 +19,9 @@
 - [x] Rewrite `README.md` for public GitHub release.
 - [x] Add MIT license.
 - [x] Validate manifest and content script.
-- [ ] Commit README/license changes.
-- [ ] Create public GitHub repository with `gh`.
-- [ ] Push `main` to GitHub.
+- [x] Commit README/license changes.
+- [x] Create public GitHub repository with `gh`.
+- [x] Push `main` to GitHub.
 
 ## Plan
 
@@ -40,3 +40,4 @@ Verification will include manifest/script syntax checks and a local HTML page th
 - With the extension loaded on `https://www.partselect.com/purchase/?guid=e6c3a2b3-e8cc-496e-a09e-e3dcb69f5e83`, Chrome registered `Do Not Block Paste` and injected isolated content-script worlds into the PartSelect page and a Stripe card-number iframe.
 - A controlled blocker probe on the checkout `promocode` field verified that page handlers for `paste`, `beforeinput` paste, paste keyboard shortcut, and `contextmenu` did not receive or cancel those events.
 - The same probe without the extension confirmed the blockers received and canceled all four events.
+- Public GitHub repository created at `https://github.com/fragmede/do-not-block-paste`.
