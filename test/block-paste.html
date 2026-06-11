@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Paste Blocker Test</title>
+    <style>
+      body {
+        color: #24292f;
+        font: 16px/1.5 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        margin: 2rem;
+        max-width: 760px;
+      }
+
+      label {
+        display: block;
+        font-weight: 600;
+        margin: 1.25rem 0 0.4rem;
+      }
+
+      input,
+      textarea,
+      [contenteditable] {
+        border: 1px solid #8c959f;
+        border-radius: 6px;
+        box-sizing: border-box;
+        display: block;
+        font: inherit;
+        min-height: 2.5rem;
+        padding: 0.65rem;
+        width: 100%;
+      }
+
+      textarea {
+        min-height: 7rem;
+      }
+
+      [contenteditable] {
+        min-height: 5rem;
+      }
+
+      .status {
+        background: #f6f8fa;
+        border: 1px solid #d0d7de;
+        border-radius: 6px;
+        margin-top: 1.5rem;
+        padding: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Paste Blocker Test</h1>
+    <p>
+      Without the extension, this page blocks paste through paste, beforeinput,
+      keyboard shortcut, and context menu handlers. With the extension loaded,
+      native paste should work in each editable field.
+    </p>
+
+    <label for="field">Input</label>
+    <input id="field" type="text" placeholder="Paste here">
+
+    <label for="message">Textarea</label>
+    <textarea id="message" placeholder="Paste here"></textarea>
+
+    <label for="editor">Contenteditable</label>
+    <div id="editor" contenteditable="true" role="textbox" aria-label="Contenteditable test field"></div>
+
+    <div class="status" id="status">Blocked event count: 0</div>
+
+    <script>
+      const status = document.querySelector("#status");
+      let blockedCount = 0;
+
+      const isEditableTarget = (event) =>
+        event.target.closest("input, textarea, [contenteditable]");
+
+      const block = (event) => {
+        if (!isEditableTarget(event)) {
+          return;
+        }
+
+        blockedCount += 1;
+        status.textContent = `Blocked event count: ${blockedCount}`;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      };
+
+      window.addEventListener("paste", block, true);
+      window.addEventListener("beforeinput", (event) => {
+        if (event.inputType === "insertFromPaste") {
+          block(event);
+        }
+      }, true);
+      window.addEventListener("contextmenu", block, true);
+      window.addEventListener("keydown", (event) => {
+        if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "v") {
+          block(event);
+        }
+      }, true);
+    </script>
+  </body>
+</html>
