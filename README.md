@@ -11,6 +11,8 @@ Chrome extension that restores native paste behavior on pages that block pasting
 
 The extension runs on all pages and all frames. It does not request clipboard permissions or read clipboard contents.
 
+Chrome 137 and newer branded builds no longer support loading unpacked extensions with the `--load-extension` command-line flag. Use the manual **Load unpacked** flow above for your regular Chrome profile, and use Chrome for Testing or Chromium for automated extension tests.
+
 ## How It Works
 
 The content script runs at `document_start` and captures paste-related events before page scripts can cancel them. For native editable targets (`input`, `textarea`, and `contenteditable`), it stops the page's event handlers from seeing paste events while preserving the browser's default paste behavior.

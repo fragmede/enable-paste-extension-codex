@@ -3,6 +3,7 @@
   "name": "Do Not Block Paste",
   "description": "Restores native paste behavior on pages that block pasting into editable fields.",
   "version": "1.0.0",
+  "host_permissions": ["<all_urls>"],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
