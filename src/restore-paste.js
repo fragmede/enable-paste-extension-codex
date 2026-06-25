@@ -21,7 +21,7 @@
     "insertFromPasteAsQuotation"
   ]);
 
-  const PASTE_EVENTS = new Set(["paste", "beforeinput", "keydown", "contextmenu"]);
+  const PASTE_EVENTS = new Set(["paste", "beforeinput", "keydown", "keypress", "contextmenu"]);
 
   const hasConstructor = (name) => typeof globalThis[name] === "function";
 
@@ -96,7 +96,7 @@
   };
 
   const isPasteShortcut = (event) => {
-    if (event.type !== "keydown") {
+    if (event.type !== "keydown" && event.type !== "keypress") {
       return false;
     }
 
@@ -116,7 +116,7 @@
       return PASTE_INPUT_TYPES.has(event.inputType);
     }
 
-    if (event.type === "keydown") {
+    if (event.type === "keydown" || event.type === "keypress") {
       return isPasteShortcut(event);
     }
 

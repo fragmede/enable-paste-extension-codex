@@ -23,6 +23,14 @@
 - [x] Create public GitHub repository with `gh`.
 - [x] Push `main` to GitHub.
 
+## Certified Offer Bug
+
+- [x] Reproduce paste blocking on `https://www.certifiedofferservice.com/CertifiedOffer/offer/submitOffer.do?accountType=newCustomer`.
+- [x] Identify the blocker pattern that bypasses the current extension.
+- [x] Patch the extension with the smallest robust fix.
+- [x] Verify the fix against the Certified Offer page and existing checks.
+- [x] Document results and commit the fix.
+
 ## Plan
 
 Build a focused Chrome extension with a content script that runs at `document_start` in all frames. The content script will intercept paste-related user actions on native editable targets, stop page handlers from canceling those actions, and leave the browser default paste behavior intact.
@@ -41,3 +49,7 @@ Verification will include manifest/script syntax checks and a local HTML page th
 - A controlled blocker probe on the checkout `promocode` field verified that page handlers for `paste`, `beforeinput` paste, paste keyboard shortcut, and `contextmenu` did not receive or cancel those events.
 - The same probe without the extension confirmed the blockers received and canceled all four events.
 - Public GitHub repository created at `https://github.com/fragmede/do-not-block-paste`.
+- Certified Offer embeds the payment fields in SecurePay's `token-iframe`; its `securepay.js` attaches a numeric `keypress` validator to `#cardNumber`, which can intercept `Cmd+V` before the previous extension build handled it.
+- The extension now treats paste shortcuts on both `keydown` and `keypress` as paste-related events while allowing ordinary numeric typing to continue.
+- The unpacked `Do Not Block Paste` extension was installed and reloaded in the user's regular Chrome profile, then the payment iframe was reloaded without refreshing the full offer page.
+- A controlled SecurePay test tab verified that dummy card number `4111111111111111` pasted into `#cardNumber`; no real card data was read and no payment or offer form was submitted.

@@ -29,7 +29,7 @@ The content script runs at `document_start` and captures these paste-related eve
 
 - `paste`
 - `beforeinput` with `insertFromPaste`
-- paste keyboard shortcuts such as `Cmd+V` and `Ctrl+V`
+- paste keyboard shortcuts such as `Cmd+V` and `Ctrl+V`, including pages that block those shortcuts from `keydown` or `keypress`
 - `contextmenu`
 
 When the event target is editable, the extension calls `stopImmediatePropagation()` so page-level blockers do not receive the event. It intentionally does not call `preventDefault()`, so Chrome's native paste behavior continues normally.

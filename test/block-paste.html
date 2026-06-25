@@ -92,11 +92,14 @@
         }
       }, true);
       window.addEventListener("contextmenu", block, true);
-      window.addEventListener("keydown", (event) => {
+      const blockPasteShortcut = (event) => {
         if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "v") {
           block(event);
         }
-      }, true);
+      };
+
+      window.addEventListener("keydown", blockPasteShortcut, true);
+      window.addEventListener("keypress", blockPasteShortcut, true);
     </script>
   </body>
 </html>
